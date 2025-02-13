@@ -7,11 +7,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/start_detection')
-def start_detection():
-    # Run `run.py` as a separate process
-    subprocess.Popen(["python", "run.py"], shell=True)
-    return "Detection started!"
+@app.route('/run-model')
+def run_model():
+    result = subprocess.run(
+        ["python", "yolov5/detect.py", "--weights", "yolov5/best.pt", "--img", "416", "--conf", "0.5", "--source", "0"],
+        capture_output=True,
+        text=True
+    )
+    return result.stdout  # Sends output to frontend
 
-if __name__ == "__main__":
-    app.run(debug=True)
+def handler(event, context):
+    return app(event, context)  # Required for serverless deployment
