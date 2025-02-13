@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOLO Sign Language Detection</title>
+    <script>
+        function startDetection() {
+            fetch('/start_detection')
+                .then(response => alert("Detection Started! Check the new terminal window."));
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Language Detection</h1>
+    <button onclick="startDetection()">Start Detection</button>
+</body>
+</html>
